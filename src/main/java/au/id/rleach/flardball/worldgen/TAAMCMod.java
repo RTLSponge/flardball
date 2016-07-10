@@ -1,5 +1,6 @@
 package au.id.rleach.flardball.worldgen;
 
+import au.id.rleach.flardball.Plugin;
 import com.google.common.base.Objects;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
@@ -128,7 +129,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
 
     @Override public String getId() {
-        return "taamc:basemod";
+        return Plugin.ID+":basemod";
     }
 
     @Override public String getName() {
