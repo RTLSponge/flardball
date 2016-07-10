@@ -8,7 +8,7 @@ import org.spongepowered.api.entity.living.player.gamemode.GameModes;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.world.difficulty.Difficulties;
-import org.spongepowered.api.world.gen.WorldGenerator;
+import org.spongepowered.api.world.gen.WorldGeneratorModifier;
 import org.spongepowered.api.world.storage.WorldProperties;
 
 import java.util.ArrayList;
@@ -44,13 +44,15 @@ public class Setup {
                     Range skylands = new Range(20, 30);
                     Range theVoid = new Range(30, Integer.MAX_VALUE);
 
-                    WorldGenerator wg;
-                    ArrayList<TAAMCMod> mods = Lists.newArrayList(
-                            new TAAMCMod(spawn), //uses existing generation settings
-                            new TAAMCMod(amplified, amplfiedGen),//TODO: need a reference to amplfiedGen
-                            new TAAMCMod(skylands, skylandsGen), //TODO: need a reference to skylandsGen
-                            new TAAMCMod(theVoid, theVoidGen)    //TODO: need a reference to VOIDgen
+                    ArrayList<WorldGeneratorModifier> mods = Lists.newArrayList(
+                            new TAAMCMod(spawn)//, //uses existing generation settings
+//                            new TAAMCAmplifiedMod(amplified)//,//TODO: need a reference to amplfiedGen
+//                            //new TAAMCMod(skylands, skylandsGen), //TODO: need a reference to skylandsGen
+//                            //new TAAMCMod(theVoid, theVoidGen)    //TODO: need a reference to VOIDgen
                     );
+                    props.setGeneratorModifiers(mods);
+
+
                 }
         );
     }
