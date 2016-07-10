@@ -1,5 +1,6 @@
 package au.id.rleach.flardball.worldgen;
 
+import com.google.common.base.Objects;
 import org.spongepowered.api.world.Chunk;
 import org.spongepowered.api.world.extent.MutableBiomeArea;
 import org.spongepowered.api.world.extent.MutableBlockVolume;
@@ -29,5 +30,21 @@ public class Range {
     public boolean test(MutableBiomeArea buffer) {
         float dist = buffer.getBiomeMin().distance(0, 0);
         return dist > minDistance && dist <= maxDistance;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Range range = (Range) o;
+        return this.minDistance == range.minDistance &&
+                this.maxDistance == range.maxDistance;
+    }
+
+    @Override public int hashCode() {
+        return Objects.hashCode(this.minDistance, this.maxDistance);
     }
 }

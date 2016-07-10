@@ -1,5 +1,6 @@
 package au.id.rleach.flardball.worldgen;
 
+import com.google.common.base.Objects;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.world.WorldCreationSettings;
@@ -127,10 +128,26 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
 
     @Override public String getId() {
-        return "TAAMC:BaseMod";
+        return "taamc:basemod";
     }
 
     @Override public String getName() {
         return "TAAMC_BaseMod";
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        TAAMCMod taamcMod = (TAAMCMod) o;
+        return Objects.equal(this.range, taamcMod.range) &&
+                Objects.equal(this.wg, taamcMod.wg);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hashCode(this.range, this.wg);
     }
 }
