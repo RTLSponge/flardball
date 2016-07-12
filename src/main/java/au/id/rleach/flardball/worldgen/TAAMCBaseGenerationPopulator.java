@@ -14,7 +14,9 @@ public class TAAMCBaseGenerationPopulator implements GenerationPopulator {
     Map<Range, GenerationPopulator> populatorMap = Maps.newLinkedHashMap();
 
     public TAAMCBaseGenerationPopulator(GenerationPopulator original) {
-        basePop = original;
+
+        basePop = (w,b,bi)->{};
+        append(new Range(-1,10), original);
     }
 
     @Override public void populate(World world, MutableBlockVolume buffer, ImmutableBiomeArea biomes) {

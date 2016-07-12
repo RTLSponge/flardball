@@ -1,5 +1,6 @@
 package au.id.rleach.flardball.worldgen;
 
+import com.google.common.collect.Maps;
 import org.spongepowered.api.world.extent.MutableBiomeArea;
 import org.spongepowered.api.world.gen.BiomeGenerator;
 import org.spongepowered.api.world.gen.GenerationPopulator;
@@ -9,10 +10,13 @@ import java.util.Map;
 public class TAAMCBiomeGenerator implements BiomeGenerator {
 
     BiomeGenerator baseGen;
-    Map<Range, BiomeGenerator> biomeMap;
+    Map<Range, BiomeGenerator> biomeMap = Maps.newLinkedHashMap();
 
     public TAAMCBiomeGenerator(BiomeGenerator ogBiomes) {
-        baseGen = ogBiomes;
+
+        baseGen = buffer -> {};
+        append(new Range(-1, 10), ogBiomes);
+
     }
 
     void append(Range r, BiomeGenerator biomeGenerator){
