@@ -19,7 +19,7 @@ public class Setup {
 
     @Listener
     public void onInit(GameInitializationEvent init){
-        Sponge.getRegistry().register(WorldGeneratorModifier.class, new TAAMCMod(new Range(-1, 10)));
+        Sponge.getRegistry().register(WorldGeneratorModifier.class, new TAAMCMod(new Range(-1, 200)));
     }
 
     @Listener

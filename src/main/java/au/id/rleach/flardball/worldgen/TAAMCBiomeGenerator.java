@@ -9,13 +9,11 @@ import java.util.Map;
 
 public class TAAMCBiomeGenerator implements BiomeGenerator {
 
-    BiomeGenerator baseGen;
     Map<Range, BiomeGenerator> biomeMap = Maps.newLinkedHashMap();
 
-    public TAAMCBiomeGenerator(BiomeGenerator ogBiomes) {
+    public TAAMCBiomeGenerator(BiomeGenerator ogBiomes, Range r) {
 
-        baseGen = buffer -> {};
-        append(new Range(-1, 10), ogBiomes);
+        append(r, ogBiomes);
 
     }
 
@@ -24,20 +22,13 @@ public class TAAMCBiomeGenerator implements BiomeGenerator {
     }
 
     @Override public void generateBiomes(MutableBiomeArea buffer) {
-        boolean modified;
-        modified = false;
         for (Map.Entry<Range, BiomeGenerator> entry : biomeMap.entrySet()) {
             Range range = entry.getKey();
             BiomeGenerator biomeGenerator = entry.getValue();
 
             if (range.test(buffer)) {
-                modified = true;
                 biomeGenerator.generateBiomes(buffer);
-                break;
             }
-        }
-        if (!modified) {
-            baseGen.generateBiomes(buffer);
         }
     }
 }

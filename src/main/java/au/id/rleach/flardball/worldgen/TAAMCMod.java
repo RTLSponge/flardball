@@ -83,7 +83,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
     protected GenerationPopulator transformBase(GenerationPopulator original, GenerationPopulator append) {
         if(! (original instanceof TAAMCBaseGenerationPopulator)) {
-            return new TAAMCBaseGenerationPopulator(original);
+            return new TAAMCBaseGenerationPopulator(original, range);
         }
         else {
             ((TAAMCBaseGenerationPopulator) original).append(range, append);
@@ -94,7 +94,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
     protected BiomeGenerator transform(BiomeGenerator ogBiomes, BiomeGenerator append) {
 
         if(!(ogBiomes instanceof TAAMCBiomeGenerator))
-            return new TAAMCBiomeGenerator(ogBiomes);
+            return new TAAMCBiomeGenerator(ogBiomes, range);
         else
             ((TAAMCBiomeGenerator) ogBiomes).append(range, append);
             return ogBiomes;
