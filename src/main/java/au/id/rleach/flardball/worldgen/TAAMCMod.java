@@ -35,6 +35,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
 
     @Override public void modifyWorldGenerator(WorldCreationSettings world, DataContainer settings, WorldGenerator wgOut) {
+
         WorldGenerator wgIn = this.wg.orElse(wgOut);
 
         modifyBiomeSettings(wgIn, wgOut);

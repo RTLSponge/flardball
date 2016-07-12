@@ -6,7 +6,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.gamemode.GameModes;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.world.difficulty.Difficulties;
 import org.spongepowered.api.world.gen.WorldGeneratorModifier;
@@ -48,6 +47,8 @@ public class Setup {
                     Range amplified = new Range(10, 20);
                     Range skylands = new Range(20, 30);
                     Range theVoid = new Range(30, Integer.MAX_VALUE);
+
+
                 }
         );
     }

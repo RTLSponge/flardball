@@ -21,6 +21,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.entity.spawn.SpawnCause;
 import org.spongepowered.api.event.cause.entity.spawn.SpawnTypes;
 import org.spongepowered.api.event.entity.ChangeEntityPotionEffectEvent;
+import org.spongepowered.api.event.game.state.GameConstructionEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.item.inventory.UseItemStackEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -61,10 +62,14 @@ public class FlardBall {
     private Map<UUID, Location<World>> ballSpawns = Maps.newLinkedHashMap();
 
     @Listener
-    public void onPreInit(GameInitializationEvent event){
+    public void construct(GameConstructionEvent constructionEvent) {
+        Sponge.getEventManager().registerListeners(this, new Setup());
+    }
+
+    @Listener
+    public void onInit(GameInitializationEvent event){
         permissionService = Sponge.getServiceManager().provide(PermissionService.class).get();
         setup();
-        Sponge.getEventManager().registerListeners(this, new Setup());
     }
 
     private void setup(){
