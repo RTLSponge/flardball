@@ -4,6 +4,7 @@ import au.id.rleach.flardball.worldgen.Setup;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.Sponge;
@@ -53,6 +54,8 @@ public class FlardBall {
 
     @Inject
     private PluginContainer container;
+    @Inject
+    private Injector parent;
 
     private CommentedConfigurationNode configNode;
     private FlardBallConfig flardBallConfig;
@@ -63,7 +66,8 @@ public class FlardBall {
 
     @Listener
     public void construct(GameConstructionEvent constructionEvent) {
-        Sponge.getEventManager().registerListeners(this, new Setup());
+        Injector child = parent.createChildInjector();
+        Sponge.getEventManager().registerListeners(this, child.getInstance(Setup.class));
     }
 
     @Listener

@@ -2,7 +2,9 @@ package au.id.rleach.flardball.worldgen;
 
 import au.id.rleach.flardball.Plugin;
 import com.google.common.base.Objects;
+import com.google.inject.Inject;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.world.WorldCreationSettings;
 import org.spongepowered.api.world.biome.BiomeGenerationSettings;
@@ -13,6 +15,7 @@ import org.spongepowered.api.world.gen.Populator;
 import org.spongepowered.api.world.gen.WorldGenerator;
 import org.spongepowered.api.world.gen.WorldGeneratorModifier;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
     Range range;
     Optional<WorldGenerator> wg;
+    @Inject @ConfigDir(sharedRoot = false) Path dir;
 
 
     public TAAMCMod(Range range) {
@@ -38,29 +42,30 @@ public class TAAMCMod implements WorldGeneratorModifier {
 
         WorldGenerator wgIn = this.wg.orElse(wgOut);
 
-        modifyBiomeSettings(wgIn, wgOut);
+        //modifyBiomeSettings(wgIn, wgOut);
 
-        GenerationPopulator ogBase = wgOut.getBaseGenerationPopulator();
-        GenerationPopulator append = wgIn.getBaseGenerationPopulator();
-        GenerationPopulator newBase = transformBase(ogBase, append);
-        wgOut.setBaseGenerationPopulator(newBase);
+        //GenerationPopulator ogBase = wgOut.getBaseGenerationPopulator();
+        //GenerationPopulator append = wgIn.getBaseGenerationPopulator();
+        //GenerationPopulator newBase = transformBase(ogBase, append);
+        //wgOut.setBaseGenerationPopulator(newBase);
 
         BiomeGenerator ogBiomes = wgOut.getBiomeGenerator();
-        BiomeGenerator appendBiome = wgIn.getBiomeGenerator();
-        BiomeGenerator newBiomeGen = transform(ogBiomes, appendBiome);
-        wgOut.setBiomeGenerator(newBiomeGen);
+        //BiomeGenerator appendBiome = wgIn.getBiomeGenerator();
+        //BiomeGenerator newBiomeGen = transform(ogBiomes, appendBiome);
+        //wgOut.setBiomeGenerator(newBiomeGen);
+        wgOut.setBiomeGenerator(new FloodFillBiomeSwapper(ogBiomes, dir.resolve("biomeMap")));
 
         //mutable
-        List<GenerationPopulator> ogGenPop = wgIn.getGenerationPopulators();
-        List<GenerationPopulator> newGenPop = transformGen(ogGenPop);
-        ogGenPop.clear();
-        wgOut.getGenerationPopulators().addAll(newGenPop);
+        //List<GenerationPopulator> ogGenPop = wgIn.getGenerationPopulators();
+        //List<GenerationPopulator> newGenPop = transformGen(ogGenPop);
+        //ogGenPop.clear();
+        //wgOut.getGenerationPopulators().addAll(newGenPop);
 
         //mutable
-        List<Populator> ogPop = wgIn.getPopulators();
-        List<Populator> newPop = transformPop(ogPop);
-        ogPop.clear();
-        wgOut.getPopulators().addAll(newPop);
+        //List<Populator> ogPop = wgIn.getPopulators();
+        //List<Populator> newPop = transformPop(ogPop);
+        //ogPop.clear();
+        //wgOut.getPopulators().addAll(newPop);
     }
 
     private void modifyBiomeSettings(WorldGenerator wgIn, WorldGenerator wgOut) {

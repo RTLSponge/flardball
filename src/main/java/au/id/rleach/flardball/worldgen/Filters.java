@@ -46,7 +46,7 @@ public class Filters {
         }
 
         @Override public void populate(World world, MutableBlockVolume buffer, ImmutableBiomeArea biomes) {
-            if(test.test(buffer)) populate(world, buffer, biomes);
+            if(test.test(buffer)) pop.populate(world, buffer, biomes);
         }
     }
 }
