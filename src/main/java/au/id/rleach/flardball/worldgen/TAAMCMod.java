@@ -53,7 +53,7 @@ public class TAAMCMod implements WorldGeneratorModifier {
         //BiomeGenerator appendBiome = wgIn.getBiomeGenerator();
         //BiomeGenerator newBiomeGen = transform(ogBiomes, appendBiome);
         //wgOut.setBiomeGenerator(newBiomeGen);
-        wgOut.setBiomeGenerator(new FloodFillBiomeSwapper(ogBiomes, dir.resolve("biomeMap")));
+        wgOut.setBiomeGenerator(new FloodFillBiomeSwapper(ogBiomes, dir.resolve("biomeMap").resolve(world.getWorldName())));
 
         //mutable
         //List<GenerationPopulator> ogGenPop = wgIn.getGenerationPopulators();

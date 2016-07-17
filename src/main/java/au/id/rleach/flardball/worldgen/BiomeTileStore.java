@@ -9,6 +9,7 @@ import com.google.common.cache.RemovalCause;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalListeners;
 
+import com.google.common.math.IntMath;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
@@ -50,7 +51,8 @@ public class BiomeTileStore {
             )
             .build(load);
 
-    private final int TILE_SIZE = 512;
+    private static final int BITSHIFT = 9; //512
+    private static final int TILE_SIZE = IntMath.pow(2, BITSHIFT);
     private final Supplier<BufferedImage> newImage = () -> new BufferedImage(TILE_SIZE, TILE_SIZE, BufferedImage.TYPE_INT_RGB);
 
 
@@ -75,9 +77,9 @@ public class BiomeTileStore {
     }
 
     BiomeTile getImageForXZ(Vector2i vector2i){
-        final Vector2i tileXZ = vector2i.div(TILE_SIZE);
+        final Vector2i tileXZ = new Vector2i(vector2i.getX() >> BITSHIFT, vector2i.getY() >> BITSHIFT);
         try {
-            return loadingCache.get(tileXZ, ()->loadImage(tileXZ));
+            return loadingCache.get(tileXZ);
         } catch (ExecutionException e) {
             //Admin problem.
             throw new RuntimeException(e);
